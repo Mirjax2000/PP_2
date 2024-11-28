@@ -1,0 +1,12 @@
+[project]
+name = "pp-2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mypy>=1.13.0",
+    "pylint>=3.3.1",
+    "rich>=13.9.4",
+    "ruff>=0.8.0",
+]
