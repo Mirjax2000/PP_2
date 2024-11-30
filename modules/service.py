@@ -3,6 +3,21 @@
 import customtkinter as ctk
 
 
+def ctk_init(self, app_width: int, app_height: int):
+    """App init"""
+    self.update_idletasks()
+    self.title("SQLAlchemy")
+    self.minsize(app_width, app_height)
+    self.resizable(False, False)
+    width: int = app_width
+    height: int = app_height
+    screen_width: int = self.winfo_screenwidth()
+    screen_height: int = self.winfo_screenheight()
+    x: int = screen_width // 2 - width // 2
+    y: int = screen_height // 2 - height // 2
+    self.geometry(f"{width}x{height}+{x}+{y}")
+
+
 def make_label(
     self, text_l: str, row: int, column: int
 ) -> ctk.CTkLabel:

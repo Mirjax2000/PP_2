@@ -4,7 +4,7 @@ import customtkinter as ctk
 from rich.console import Console
 from rich.traceback import install
 
-from modules.service import make_btn, make_entry, make_label
+from modules.service import make_btn, make_entry, make_label, ctk_init
 from modules.connection import DB
 
 install(show_locals=True)
@@ -16,42 +16,24 @@ class App(ctk.CTk):
 
     def __init__(self) -> None:
         super().__init__()
-        self.title("SQLAlchemy")
-        self.minsize(400, 400)
-        self.resizable(False, False)
-        self.update_idletasks()
-        width: int = 380
-        height: int = 400
-        screen_width: int = self.winfo_screenwidth()
-        screen_height: int = self.winfo_screenheight()
-        x: int = screen_width // 2 - width // 2
-        y: int = screen_height // 2 - height // 2
-        self.geometry(f"{width}x{height}+{x}+{y}")
+        ctk_init(self, 400, 400)
         #
-        self.header: ctk.CTkLabel = make_label(
-            self, "Vypocet B.M.I.", 0, 1
-        )
-        self.vaha: ctk.CTkLabel = make_label(
-            self, "Zadejte vahu (kg):", 1, 0
-        )
-        self.vyska: ctk.CTkLabel = make_label(
-            self, "Zadejte vysku (m):", 2, 0
-        )
-        self.result: ctk.CTkLabel = make_label(
-            self, "Ciselny vysledek:", 4, 0
-        )
+        self.header = make_label(self, "Vypocet B.M.I.", 0, 1)
+        self.vaha = make_label(self, "Zadejte vahu (kg):", 1, 0)
+        self.vyska = make_label(self, "Zadejte vysku (m):", 2, 0)
+        self.rslt_num = make_label(self, "Ciselny vysledek:", 4, 0)
+        self.usr_rslt_num = make_label(self, "...", 4, 1)
+        self.rslt_txt = make_label(self, "Textovy vysledek", 5, 0)
+        self.usr_rslt_txt = make_label(self, "...", 5, 1)
+        self.cnt_txt = make_label(self, "Pocet uzivatelu:", 7, 0)
+        self.cnt_num = make_label(self, "...", 7, 1)
         #
-        self.vaha_entry: ctk.CTkEntry = make_entry(
-            self, "vaha ...", 1, 1
-        )
-        self.vyska_entry: ctk.CTkEntry = make_entry(
-            self, "vyska ...", 2, 1
-        )
-        self.vypocitat_btn: ctk.CTkButton = make_btn(
-            self, "Vypocitat ", 3, 1, None
-        )
+        self.vaha_entry = make_entry(self, "vaha ...", 1, 1)
+        self.vyska_entry = make_entry(self, "vyska ...", 2, 1)
+        self.vypocitat_btn = make_btn(self, "Vypocitat ", 3, 1, None)
 
         self.columnconfigure((0, 1), weight=1, uniform="a")
+        self.rowconfigure(6, weight=0, minsize=20, uniform="b")
 
 
 if __name__ == "__main__":

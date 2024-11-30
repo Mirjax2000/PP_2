@@ -149,7 +149,7 @@
     },
     "git.confirmSync": false,
     "code-runner.executorMap": {
-        "python": "C:/WORK/Python/EDU/Setek/PP_2/.venv/Scripts/python.exe"
+        "python": "$pythonPath $fullFileName",
     },
-    "python.defaultInterpreterPath": "C:/WORK/Python/EDU/Setek/PP_2/.venv/Scripts/python.exe",
+    "python.defaultInterpreterPath": "$pythonPath $fullFileName",
 }
