@@ -5,6 +5,7 @@ from rich.console import Console
 from rich.traceback import install
 
 from modules.service import make_btn, make_entry, make_label
+from modules.connection import DB
 
 install(show_locals=True)
 console: Console = Console()
@@ -16,7 +17,7 @@ class App(ctk.CTk):
     def __init__(self) -> None:
         super().__init__()
         self.title("SQLAlchemy")
-        self.minsize(400, 600)
+        self.minsize(400, 400)
         self.resizable(False, False)
         self.update_idletasks()
         width: int = 380

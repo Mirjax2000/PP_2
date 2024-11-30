@@ -11,8 +11,12 @@ load_dotenv(override=True)
 DB: Engine = create_engine(
     f"postgresql+psycopg://{os.getenv('USER')}:"
     f"{os.getenv('PASSWORD')}@{os.getenv('HOST')}:"
-    f"{os.getenv('PORT')}/{os.getenv('DB')}"
+    f"{os.getenv('PORT')}"
 )
 
 Session = sessionmaker(bind=DB)
 session = Session()
+
+
+if __name__ == "__main__":
+    print(DB.url)
