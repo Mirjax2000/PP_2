@@ -4,7 +4,9 @@ import customtkinter as ctk
 from rich.console import Console
 from rich.traceback import install
 
-from modules.service import make_btn, make_entry, make_label, ctk_init
+from modules.service import make_btn, make_entry, make_label
+from modules.service import bmi_calc, ctk_init
+
 from modules.connection import DB
 
 install(show_locals=True)
@@ -30,10 +32,27 @@ class App(ctk.CTk):
         #
         self.vaha_entry = make_entry(self, "vaha ...", 1, 1)
         self.vyska_entry = make_entry(self, "vyska ...", 2, 1)
-        self.vypocitat_btn = make_btn(self, "Vypocitat ", 3, 1, None)
+        self.vypocitat_btn = make_btn(
+            self,
+            "Vypocitat ",
+            3,
+            1,
+            lambda: self.bmi(
+                self.vaha_entry.get(), self.vyska_entry.get()
+            ),
+        )
 
         self.columnconfigure((0, 1), weight=1, uniform="a")
         self.rowconfigure(6, weight=0, minsize=20, uniform="b")
+
+    def bmi(self, vaha: str, vyska: str):
+        """prenesene volani na bmi_calc v service"""
+        vaha_kg: float = float(vaha)
+        vyska_m: float = float(vyska)
+        result_num, result_txt = bmi_calc(vaha_kg, vyska_m)
+        self.usr_rslt_num.configure(text=result_num)
+        self.usr_rslt_txt.configure(text=result_txt)
+
 
 
 if __name__ == "__main__":
