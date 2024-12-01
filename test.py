@@ -1,19 +1,5 @@
 """test"""
+a:bool = True
+b:bool = False
 
-import os
-from dotenv import load_dotenv
-from sqlalchemy import Engine, text, create_engine
-from sqlalchemy.orm import sessionmaker
-
-
-load_dotenv(override=True)
-
-DB: Engine = create_engine(
-    f"postgresql+psycopg://{os.getenv('USER')}:"
-    f"{os.getenv('PASSWORD')}@{os.getenv('HOST')}:"  # Pozor na psycopg2 místo psycopg!
-    f"{os.getenv('PORT')}/{os.getenv('DB')}"
-)
-
-Session = sessionmaker(bind=DB)
-session = Session()
-
+print(a and b)

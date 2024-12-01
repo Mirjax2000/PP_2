@@ -7,7 +7,7 @@ from rich.traceback import install
 from modules.service import make_btn, make_entry, make_label
 from modules.service import bmi_calc, ctk_init
 
-from modules.connection import DB
+from modules.connection import engine
 
 install(show_locals=True)
 console: Console = Console()
@@ -52,7 +52,6 @@ class App(ctk.CTk):
         result_num, result_txt = bmi_calc(vaha_kg, vyska_m)
         self.usr_rslt_num.configure(text=result_num)
         self.usr_rslt_txt.configure(text=result_txt)
-
 
 
 if __name__ == "__main__":

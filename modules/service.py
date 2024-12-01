@@ -83,7 +83,7 @@ def make_btn(
 
 def bmi_calc(vaha: float, vyska: float) -> tuple[float, str]:
     """B.M.I."""
-    result_txt: str = ""
+    result_txt: str
     result_num: float = round(vaha / (vyska) ** 2, 2)
     if result_num < 18.5:
         result_txt = "Podvaha"
