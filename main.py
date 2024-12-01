@@ -6,7 +6,6 @@ from rich.traceback import install
 
 from modules.service import make_btn, make_entry, make_label
 from modules.service import bmi_calc, ctk_init
-
 from modules.connection import engine
 
 install(show_locals=True)
