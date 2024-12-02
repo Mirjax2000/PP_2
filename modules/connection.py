@@ -9,10 +9,8 @@ from sqlalchemy_utils import (
     database_exists as db_exist,
     create_database as create_db,
 )
-from models.model import Base
 
 console: Console = Console()
-
 load_dotenv(override=True)
 
 db_name: str = "health"
@@ -35,27 +33,20 @@ def create_database(name: str):
     if not db_exist(engine.url):
         console.print(
             f"databaze neexistuje!\nVytvarim DB: {name}",
-            style="green",
+            style="red bold",
         )
         create_db(engine.url)
 
         with session.connection() as conn:
             temp = conn.execute(text("SELECT version();"))
-            console.print(temp.fetchone())
+            console.print(temp.fetchone(), style="green")
             console.print("databaze vytvorena", style="blue")
     else:
         console.log("Databaze jiz existuje", style="blue")
         with session.connection() as conn:
             temp = conn.execute(text("SELECT version();"))
-            console.print(temp.fetchone())
-
-
-def create_tables():
-    """Vytvori tably v DB: health"""
-
-    Base.metadata.create_all(engine)
+            console.print(temp.fetchone(), style="blue")
 
 
 if __name__ == "__main__":
     create_database("health")
-    create_tables()

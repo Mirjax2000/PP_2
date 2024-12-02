@@ -6,7 +6,8 @@ from rich.traceback import install
 
 from modules.service import make_btn, make_entry, make_label
 from modules.service import bmi_calc, ctk_init
-from modules.connection import engine
+from modules.connection import session
+from models.model import Bmi
 
 install(show_locals=True)
 console: Console = Console()
@@ -51,6 +52,14 @@ class App(ctk.CTk):
         result_num, result_txt = bmi_calc(vaha_kg, vyska_m)
         self.usr_rslt_num.configure(text=result_num)
         self.usr_rslt_txt.configure(text=result_txt)
+        App.insert_to_db(result_num, result_txt)
+
+    @staticmethod
+    def insert_to_db(rslt_num, rslt_txt) -> None:
+        """Vytvoreni zaznamu"""
+        zaznam_bmi = Bmi(bmi_num=rslt_num, bmi_txt=rslt_txt)
+        session.add(zaznam_bmi)
+        session.commit()
 
 
 if __name__ == "__main__":
