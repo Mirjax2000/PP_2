@@ -28,7 +28,8 @@ class App(ctk.CTk):
         self.rslt_txt = make_label(self, "Textovy vysledek", 5, 0)
         self.usr_rslt_txt = make_label(self, "...", 5, 1)
         self.cnt_txt = make_label(self, "Pocet uzivatelu:", 7, 0)
-        self.cnt_num = make_label(self, "...", 7, 1)
+        pocet_uzivatelu: int = App.count_records()
+        self.cnt_num = make_label(self, f"{pocet_uzivatelu}", 7, 1)
         #
         self.vaha_entry = make_entry(self, "vaha ...", 1, 1)
         self.vyska_entry = make_entry(self, "vyska ...", 2, 1)
@@ -53,13 +54,22 @@ class App(ctk.CTk):
         self.usr_rslt_num.configure(text=result_num)
         self.usr_rslt_txt.configure(text=result_txt)
         App.insert_to_db(result_num, result_txt)
+        count: int = App.count_records()
+        self.cnt_num.configure(text=count)
 
     @staticmethod
     def insert_to_db(rslt_num, rslt_txt) -> None:
         """Vytvoreni zaznamu"""
         zaznam_bmi = Bmi(bmi_num=rslt_num, bmi_txt=rslt_txt)
-        session.add(zaznam_bmi)
-        session.commit()
+        with session.connection():
+            session.add(zaznam_bmi)
+            session.commit()
+
+    @staticmethod
+    def count_records() -> int:
+        """Pocita pocet zaznamu"""
+        records: list = session.query(Bmi).all()
+        return len(records)
 
 
 if __name__ == "__main__":

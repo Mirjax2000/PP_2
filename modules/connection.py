@@ -20,7 +20,7 @@ db_url: str = (
     f"{os.getenv('PORT')}/{db_name}"
 )
 
-engine: Engine = create_engine(db_url, echo=True)
+engine: Engine = create_engine(db_url)
 
 Session = sessionmaker(bind=engine)
 session = Session()
